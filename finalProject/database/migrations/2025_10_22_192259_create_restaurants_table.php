@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->string('name');          // اسم المطعم
-            $table->string('location');      // الموقع أو المدينة
-            $table->text('description')->nullable(); // وصف المطعم
-            $table->string('phone')->nullable();     // رقم الهاتف
+            $table->string('name');         
+            $table->string('location');
+            $table->text('description')->nullable(); 
+            $table->string('phone')->nullable();     
             $table->timestamps();
         });
     }

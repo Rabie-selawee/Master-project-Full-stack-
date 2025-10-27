@@ -7,7 +7,6 @@
     <div class="d-flex flex-column align-items-center">
         @foreach($restaurants as $restaurant)
             <div class="card shadow-lg p-3 d-flex flex-row align-items-center mb-4" style="width: 100%; max-width: 1000px; transition: transform 0.3s;">
-                <!-- صورة المطعم مع رابط -->
                 <a href="{{ route('restaurants.show', $restaurant->id) }}" 
    style="flex-shrink:0; width:250px; height:200px; overflow:hidden; display:block;"
    class="restaurant-img-link">
@@ -17,7 +16,6 @@
          alt="{{ $restaurant->name }}">
 </a>
 
-                <!-- المعلومات -->
                 <div class="ms-4 d-flex flex-column justify-content-center" style="flex:1;">
                     <h2 class="fw-bold mb-2" style="font-size:3rem;">{{ $restaurant->name }}</h2>
                     <p class="mb-1"><strong>الموقع:</strong> {{ $restaurant->location }}</p>
@@ -33,7 +31,6 @@
     </div>
 </div>
 
-<!-- إضافة CSS صغير للـ hover effect -->
 <style>
     .restaurant-img-link img:hover {
         transform: scale(1.05);

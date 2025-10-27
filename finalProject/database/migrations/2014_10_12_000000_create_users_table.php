@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('restaurants'); // ✅ صححت الاسم
+        Schema::dropIfExists('restaurants'); 
     }
 };

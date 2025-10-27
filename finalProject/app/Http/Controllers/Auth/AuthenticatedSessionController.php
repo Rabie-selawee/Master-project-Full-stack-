@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * عرض صفحة تسجيل الدخول
      */
     public function create(): View
     {
@@ -21,28 +21,34 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * معالجة طلب تسجيل الدخول
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // تحقق من صحة البيانات وتسجيل الدخول
         $request->authenticate();
 
+        // إنشاء جلسة جديدة آمنة
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // إعادة التوجيه مع رسالة ترحيب
+        return redirect()->intended(RouteServiceProvider::HOME)
+            ->with('success', 'Welcome back!');
     }
 
     /**
-     * Destroy an authenticated session.
+     * تسجيل الخروج من الجلسة
      */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
+        // إبطال الجلسة الحالية
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // إعادة التوجيه للصفحة الرئيسية مع رسالة خروج
+        return redirect('/')
+            ->with('info', 'You have been logged out successfully.');
     }
 }

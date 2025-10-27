@@ -13,8 +13,8 @@ class Restaurant extends Model
         'name',
         'location',
         'description',
-        'image',   // صورة المطعم
-        'phone',   // رقم الهاتف
+        'image',   
+        'phone',   
     ];
 
     public function dishes()

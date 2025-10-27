@@ -14,10 +14,9 @@ class Dish extends Model
         'description',
         'price',
         'image',
-        'restaurant_id', // الربط مع المطعم
+        'restaurant_id', 
     ];
 
-    // العلاقة مع المطعم
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);

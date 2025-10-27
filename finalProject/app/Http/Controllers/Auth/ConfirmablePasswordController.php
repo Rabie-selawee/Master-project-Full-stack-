@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class ConfirmablePasswordController extends Controller
 {
     /**
-     * Show the confirm password view.
+     * عرض صفحة تأكيد كلمة المرور
      */
     public function show(): View
     {
@@ -21,7 +21,7 @@ class ConfirmablePasswordController extends Controller
     }
 
     /**
-     * Confirm the user's password.
+     * تأكيد كلمة مرور المستخدم
      */
     public function store(Request $request): RedirectResponse
     {
@@ -36,6 +36,7 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::HOME)
+            ->with('success', 'Welcome back!');
     }
 }

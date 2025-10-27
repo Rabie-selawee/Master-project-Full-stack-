@@ -6,22 +6,23 @@
 
     <div class="row g-5 justify-content-center">
         @foreach($dishes as $dish)
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100 shadow-lg border-0">
-                    <div class="overflow-hidden" style="height:250px;">
-                        <img src="{{ asset('images/' . $dish->image) }}" 
-                             class="card-img-top hover-zoom" 
-                             style="width:100%; height:100%; object-fit:cover;" 
-                             alt="{{ $dish->name }}">
-                    </div>
+                    <div class="overflow-hidden" style="height:180px;">
+    <img src="{{ asset('images/' . $dish->image) }}" 
+         class="card-img-top hover-zoom" 
+         style="width:100%; height:100%; object-fit:contain;" 
+         alt="{{ $dish->name }}">
+</div>
+
 
                     <div class="card-body text-center">
                         <h2 class="card-title fw-bold mb-3" style="font-size:2rem;">{{ $dish->name }}</h2>
                         <p class="text-muted mb-2">{{ Str::limit($dish->description, 100) }}</p>
                         <p class="fw-bold mb-2">السعر: {{ $dish->price }} $</p>
-                        <p class="text-primary mb-0">المطعم: {{ $dish->restaurant->name }}</p>
-                        <a href="#" class="btn btn-dark btn-lg w-100 mt-3">اطلب الآن</a>
-                    </div>
+<p class="text-orange-900 mb-1">المطعم: {{ $dish->restaurant->name }}</p>
+<a href="{{ route('orders.create', ['dish' => $dish->id]) }}" 
+   class="btn btn-warning btn-lg w-100 text-white">اطلب الآن</a>                    </div>
                 </div>
             </div>
         @endforeach

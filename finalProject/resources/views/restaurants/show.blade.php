@@ -8,7 +8,6 @@
     <div class="d-flex flex-column align-items-center">
         @foreach($restaurant->dishes as $dish)
             <div class="card shadow-lg border-0 d-flex flex-row align-items-center mb-4" style="width:100%; max-width:900px;">
-                <!-- صورة الطبق -->
                 <div class="overflow-hidden" style="width:40%; height:250px;">
                     <img src="{{ asset('images/' . $dish->image) }}" 
                          class="hover-zoom rounded" 
@@ -16,12 +15,11 @@
                          alt="{{ $dish->name }}">
                 </div>
 
-                <!-- معلومات الطبق -->
                 <div class="card-body d-flex flex-column justify-content-center" style="flex:1;">
                     <h2 class="fw-bold mb-3" style="font-size:2.5rem;">{{ $dish->name }}</h2>
                     <p class="text-muted mb-2">{{ Str::limit($dish->description, 150) }}</p>
                     <p class="fw-bold mb-3">السعر: {{ $dish->price }} $</p>
-                    <a href="#" class="btn btn-dark btn-lg w-50">اطلب الآن</a>
+<a href="{{ route('orders.create', ['dish' => $dish->id]) }}" class="btn btn-dark btn-lg w-50">اطلب الآن</a>
                 </div>
             </div>
         @endforeach

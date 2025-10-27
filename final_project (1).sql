@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2025 at 05:37 PM
+-- Generation Time: Oct 27, 2025 at 09:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -34,8 +34,27 @@ CREATE TABLE `dishes` (
   `restaurant_id` bigint(20) UNSIGNED NOT NULL,
   `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_nopad_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `dishes`
+--
+
+INSERT INTO `dishes` (`id`, `name`, `price`, `restaurant_id`, `description`, `created_at`, `updated_at`, `image`) VALUES
+(1, 'Original Recipe Chicken', 12.50, 1, 'دجاج مقلي بطريقة أصلية لذيذة مع توابل سرية.', '2025-10-26 18:14:03', '2025-10-26 18:14:03', 'download (3).jpg'),
+(2, 'Original Recipe Chicken', 3.50, 1, 'بطاطه مقرمشه.', '2025-10-26 18:26:20', '2025-10-26 18:26:20', 'download (4).jpg'),
+(3, 'Original Recipe Chicken', 6.99, 1, 'قطع دجاج مقلي بتتبيلة KFC الأصلية.', '2025-10-27 18:33:05', '2025-10-27 18:33:05', 'download (3).jpg'),
+(4, 'Zinger Burger', 5.50, 1, 'برغر دجاج مقرمش مع صوص حار وخس طازج.', '2025-10-27 18:33:05', '2025-10-27 18:33:05', 'download (5).jpg'),
+(5, 'French Fries', 2.00, 1, 'بطاطا مقلية ذهبية مقرمشة.', '2025-10-27 18:33:05', '2025-10-27 18:33:05', 'download (4).jpg\n'),
+(6, 'Twister Wrap', 4.75, 1, 'راب دجاج لذيذ بصلصة المايونيز والخس.', '2025-10-27 18:33:05', '2025-10-27 18:33:05', 'download (3).jpg'),
+(7, 'Big Mac', 5.99, 2, 'برغر مزدوج مع صوص البيغ ماك المميز.', '2025-10-27 18:33:06', '2025-10-27 18:33:06', 'download (1).jpg'),
+(8, 'McChicken', 4.50, 2, 'ساندويش دجاج شهي مع مايونيز وخس.', '2025-10-27 18:33:06', '2025-10-27 18:33:06', 'download (5).jpg\n'),
+(9, 'Cheeseburger', 2.50, 2, 'برغر كلاسيكي مع الجبن الأمريكي.', '2025-10-27 18:33:06', '2025-10-27 18:33:06', 'download (1).jpg\n'),
+(10, 'بيتزا علفحم', 3.00, 2, 'بيتزا لذيذه', '2025-10-27 18:33:06', '2025-10-27 18:33:06', 'download (2).jpg'),
+(11, 'Pepperoni Pizza', 8.99, 3, 'بيتزا ببيروني مع جبنة موزاريلا و صوص الطماطم.', '2025-10-27 18:33:06', '2025-10-27 18:33:06', 'download (2).jpg'),
+(12, 'Margherita Pizza', 7.50, 3, 'بيتزا كلاسيكية بجبنة الموزاريلا وريحان طازج.', '2025-10-27 18:33:06', '2025-10-27 18:33:06', 'download (2).jpg');
 
 -- --------------------------------------------------------
 
@@ -93,8 +112,19 @@ CREATE TABLE `orders` (
   `status` enum('pending','completed','canceled') NOT NULL DEFAULT 'pending',
   `notes` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `dish_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `restaurant_id`, `total_price`, `status`, `notes`, `created_at`, `updated_at`, `dish_id`) VALUES
+(1, 1, 1, 25.50, 'pending', 'No onions, please', '2025-10-27 19:36:22', '2025-10-27 19:36:22', 1),
+(2, 2, 1, 40.00, 'pending', 'Extra spicy', '2025-10-27 19:36:22', '2025-10-27 19:36:22', 2),
+(3, 1, 1, 25.50, 'pending', 'No onions, please', '2025-10-27 19:47:23', '2025-10-27 19:47:23', 3),
+(4, 2, 1, 20.00, 'pending', 'Extra spicy', '2025-10-27 19:47:23', '2025-10-27 19:47:23', 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +180,10 @@ CREATE TABLE `restaurants` (
 
 INSERT INTO `restaurants` (`id`, `name`, `location`, `description`, `image`, `phone`, `created_at`, `updated_at`) VALUES
 (1, 'KFC', 'Amman, Jordan', 'Fast delivery restaurant serving a variety of dishes.', 'download (1).jpg', '0788111102', '2025-10-24 09:45:59', '2025-10-24 09:45:59'),
-(2, 'Pizza Hut', 'irbd, Jordan', 'Fast delivery restaurant serving a variety of dishes.', 'download (2).jpg', '0123321123', '2025-10-24 09:59:35', '2025-10-24 09:59:35');
+(2, 'Pizza Hut', 'irbd, Jordan', 'Fast delivery restaurant serving a variety of dishes.', 'download (2).jpg', '0123321123', '2025-10-24 09:59:35', '2025-10-24 09:59:35'),
+(3, 'شورما على الحطب', 'irbd, Jordan', 'شورما على الفحم بسرعه ولذيذه', 'download.png', '498722210', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'KFC', 'عمان - الصويفية', 'مطعم متخصص في تقديم الدجاج المقلي المقرمش بتتبيلة سرية مشهورة حول العالم.', 'download (1).jpg', '0791234567', '2025-10-27 18:45:23', '2025-10-27 18:45:23'),
+(5, 'McDonald\'s', 'عمان - عبدون', 'أشهر مطعم وجبات سريعة في العالم، يقدم البرغر والبطاطا والمشروبات الغازية.', 'download.jpg', '0797654321', '2025-10-27 18:45:23', '2025-10-27 18:45:23');
 
 -- --------------------------------------------------------
 
@@ -174,7 +207,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'rabie', 'raao14@gmail.com', NULL, '$2y$10$FTvsDUTbrCTaskqZx4qRE.HQGm1EccaLQfC9sRr8JTe6kMAK3v1VO', NULL, '2025-10-24 09:40:35', '2025-10-24 09:40:35');
+(1, 'rabie', 'raao14@gmail.com', NULL, '$2y$10$FTvsDUTbrCTaskqZx4qRE.HQGm1EccaLQfC9sRr8JTe6kMAK3v1VO', NULL, '2025-10-24 09:40:35', '2025-10-24 09:40:35'),
+(2, 'Rabea', 'rabea@example.com', NULL, '$2y$10$wPK4MkoSCAucA55Wq5ZldOi3clJ97sw4BwG4Xn.J65fzk2cvcoPiC', NULL, '2025-10-26 17:32:35', '2025-10-26 17:32:35'),
+(3, 'rabea', 'rabea@gmail.com', NULL, '$2y$10$S4iA1/3Ney59PyjPXGOFU.RisQ2EF16jeOYiEe3kyf.ZTrd2mbrly', NULL, '2025-10-27 16:52:27', '2025-10-27 16:52:27'),
+(4, 'rabe', 'rabe@gmail.com', NULL, '$2y$10$wOxp3RdkyryNAiFJWH9pYepdmjysOpO/tyOrbbU3srsSskqtg73S6', NULL, '2025-10-27 16:53:45', '2025-10-27 16:53:45'),
+(5, 'rabee', 'rabee@gmail.com', NULL, '$2y$10$dy2ngJRTtpRuPRf9mOXTiucTKyg6rmJuOcTSBeUw96lUsXJDEog1u', NULL, '2025-10-27 16:56:09', '2025-10-27 16:56:09'),
+(6, 'rabbb', 'rabeee@gmail.com', NULL, '$2y$10$hK7Zi6wtwUGE.EI3o4G0Tuo5g/SCwYg4lw24Y3doDSLMQBSIABf9S', NULL, '2025-10-27 17:00:31', '2025-10-27 17:00:31');
 
 --
 -- Indexes for dumped tables
@@ -243,7 +281,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -261,7 +299,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -273,13 +311,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
